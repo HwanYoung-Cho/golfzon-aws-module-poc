@@ -16,3 +16,15 @@ module "compute" {
   subnet_id = module.network.aws_subnet_id
   security_group = module.security.security_group_id
 }
+module "network" {
+  source  = "app.terraform.io/hycho-training/network/aws"
+  version = "1.0.0"
+  prefix  = var.prefix
+  region  = var.region
+}
+module "security" {
+  source  = "app.terraform.io/hycho-training/security/aws"
+  version = "1.0.0"
+  prefix  = var.prefix
+  vpc_id  = module.network.aws_vpc_id
+}
